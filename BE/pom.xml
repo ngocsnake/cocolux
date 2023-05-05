@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>vn</groupId>
-	<artifactId>MartfuryShop</artifactId>
+	<artifactId>Cocolux</artifactId>
 	<version>1.0</version>
 	<name>MartfuryShop</name>
 	<description>MartfuryShop</description>
