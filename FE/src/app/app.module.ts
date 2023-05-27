@@ -31,6 +31,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { AuthGuard } from './guard/auth.guard';
 import { OrderModule } from 'ngx-order-pipe';
 import { NgxPayPalModule } from 'ngx-paypal';
+import { OrdersComponent } from './components/orders/orders.component';
 
 
 const routes: Routes = [
@@ -40,6 +41,7 @@ const routes: Routes = [
   { path: 'cart', component: CartComponent, canActivate: [AuthGuard] },
   { path: 'checkout', component: CheckoutComponent, canActivate: [AuthGuard] },
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
+  { path: 'orders', component: OrdersComponent, canActivate: [AuthGuard] },
   { path: 'contact', component: ContactComponent },
   { path: 'product-detail/:id', component: ProductDetailComponent },
   { path: 'search/:keyword', component: SearchComponent },
@@ -71,7 +73,8 @@ const routes: Routes = [
     ForgotPasswordComponent,
     FavoriteComponent,
     ContactComponent,
-    AboutComponent
+    AboutComponent,
+    OrdersComponent
   ],
   imports: [
     BrowserModule,

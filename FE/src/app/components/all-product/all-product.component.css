@@ -37,3 +37,8 @@
     background-color: rgba(212, 212, 212, 0.233);
     border-radius: 10%;
 }
+
+
+.ps-product__price{
+  font-size: 13px !important;
+}

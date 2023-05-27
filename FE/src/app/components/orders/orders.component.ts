@@ -10,22 +10,21 @@ import { NotificationService } from 'src/app/services/notification.service';
 import { OrderService } from 'src/app/services/order.service';
 import { SessionService } from 'src/app/services/session.service';
 import { WebSocketService } from 'src/app/services/web-socket.service';
-import { UploadService } from 'src/app/services/upload.service';
 import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-profile',
-  templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.css']
+  templateUrl: './orders.component.html',
+  styleUrls: ['./orders.component.css']
 })
-export class ProfileComponent implements OnInit {
+export class OrdersComponent implements OnInit {
 
-  customer!: any;
+  customer!: Customer;
   orders!: Order[];
+
   page: number = 1;
 
   done!: number;
-  updating = false;
 
   constructor(
     private customerService: CustomerService,
@@ -34,9 +33,7 @@ export class ProfileComponent implements OnInit {
     private router: Router,
     private orderService: OrderService,
     private webSocketService: WebSocketService,
-    private notificationService: NotificationService,
-    private uploadService: UploadService
-  ) {
+    private notificationService: NotificationService) {
 
   }
 
@@ -82,7 +79,7 @@ export class ProfileComponent implements OnInit {
   }
 
   cancel(id: number) {
-    if (id === -1) {
+    if(id===-1) {
       return;
     }
     Swal.fire({
@@ -106,54 +103,15 @@ export class ProfileComponent implements OnInit {
 
   }
 
-  sendMessage(id: number) {
+  sendMessage(id:number) {
     let chatMessage = new ChatMessage(this.customer.name, ' đã huỷ một đơn hàng');
-    this.notificationService.post(new Notification(0, this.customer.name + ' đã huỷ một đơn hàng (' + id + ')')).subscribe(data => {
+    this.notificationService.post(new Notification(0, this.customer.name + ' đã huỷ một đơn hàng ('+id+')')).subscribe(data => {
       this.webSocketService.sendMessage(chatMessage);
     })
   }
 
   finish() {
     this.ngOnInit();
-  }
-
-  fileChange(event: any) {
-    if (event.target.files && event.target.files[0]) {
-      const file = event.target.files[0];
-
-      const reader = new FileReader();
-      reader.onload = e => this.customer.imageBlob = reader.result;
-
-      reader.readAsDataURL(file);
-    }
-  }
-
-  updateCustomer() {
-    this.updating = true
-    if (this.customer.imageBlob) {
-      this.uploadService.uploadCustomer(this.customer.imageBlob).subscribe(response => {
-        if (response) {
-          this.customer.image = response.secure_url;
-          this.customerService.update(this.customer.userId, this.customer).subscribe(response => {
-            if (response) {
-              this.toastr.success("Cập nhật thông tin thành công!")
-            } else {
-              this.toastr.success("Có lỗi xảy ra!")
-            }
-            this.updating = false
-          })
-        }
-      })
-    } else {
-      this.customerService.update(this.customer.userId, this.customer).subscribe(response => {
-        if (response) {
-          this.toastr.success("Cập nhật thông tin thành công!")
-        } else {
-          this.toastr.success("Có lỗi xảy ra!")
-        }
-        this.updating = false
-      })
-    }
   }
 
 }

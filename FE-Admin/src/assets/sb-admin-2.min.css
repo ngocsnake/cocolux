@@ -11655,3 +11655,8 @@ footer.sticky-footer .copyright {
 body.sidebar-toggled footer.sticky-footer {
     width: 100%
 }
+
+
+th{
+    font-size: 17px !important;
+}  

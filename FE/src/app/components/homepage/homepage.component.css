@@ -15,3 +15,7 @@
   overflow: hidden;
   color: #ffcc23;
 }
+
+.ps-product__price{
+  font-size: 13px !important;
+}

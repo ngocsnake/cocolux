@@ -50,6 +50,9 @@
                                     <li *ngIf="isLogin">
                                         <a [routerLink]="['/profile']">Thông tin người dùng</a>
                                     </li>
+                                    <li *ngIf="isLogin">
+                                        <a [routerLink]="['/orders']">Lịch sử đơn hàng</a>
+                                    </li>
                                     <li *ngIf="!isLogin">
                                         <a [routerLink]="['/sign-form']">Đăng nhập &amp; Đăng ký</a>
                                     </li>

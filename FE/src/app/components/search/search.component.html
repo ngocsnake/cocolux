@@ -14,8 +14,23 @@
     <h1 style="margin: auto; color: black;;">Không tìm thấy sản phẩm có từ khoá <b>{{keyword}}</b></h1>
 </div> -->
 <div class="row mt-5 mb-5" style="min-height: 700px !important;" *ngIf="products.length == 0">
-    <div class="col-8 offset-2 text-center">
-        <h1 style="margin: auto; color: black;;">Không tìm thấy sản phẩm có từ khoá "<b>{{keyword}}</b>"</h1>
+    <div class="container">
+        <div class="ps-layout--shop">
+            <div class="ps-layout__left">
+                <aside class="widget widget_shop">
+                    <h4 class="widget-title">Thể loại</h4>
+                    <ul class="ps-list--categories">
+                        <li *ngFor="let item of categories">
+                            <a [routerLink]="['/by-category/'+item.categoryId]">{{item.categoryName}}</a>
+                        </li>
+
+                    </ul>
+                </aside>
+            </div>
+            <div class="ps-layout__right" style="font-size: 18px;">
+                Không tìm thấy sản phẩm phù hợp. Từ khoá <span style="font-weight: bold;">{{keyword}}</span>
+            </div>
+        </div>
     </div>
 </div>
 <div class="ps-page--shop" id="shop-sidebar" *ngIf="!isLoading && products.length > 0">

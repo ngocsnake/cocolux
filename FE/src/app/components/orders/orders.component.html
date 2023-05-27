@@ -1,0 +1,47 @@
+<div style="padding: 50px 0;margin-top: 20px;" class="ps-container">
+    <div class="ps-section__right">
+        <div class="ps-section--account-setting">
+            <div class="ps-section__header">
+                <h3>Lịch sử đặt hàng</h3>
+            </div>
+            <div class="ps-section__content">
+                <div class="table-responsive">
+                    <table class="table ps-table ps-table--invoices">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Ngày đặt</th>
+                                <th>Tổng tiền</th>
+                                <th>Địa chỉ</th>
+                                <th>Số điện thoại</th>
+                                <th>Trạng thái</th>
+                                <th style="min-width: 200px; text-align: center;">Hành động</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr
+                                *ngFor="let item of orders | paginate: { itemsPerPage: 5, currentPage: page}, index as i">
+                                <td>{{i+1}}</td>
+                                <td style="width: 15%;">{{item.orderDate|date:'dd-MM-yyyy'}}</td>
+                                <td>{{item.amount|currency:'VND'}}</td>
+                                <td>{{item.address}}</td>
+                                <td>{{item.phone}}</td>
+                                <td style="width: 17%;">{{item.status==0?'Chờ xác nhận':(item.status==1?'Đang giao hàng':(item.status==2)?'Đã nhận hàng':'Đã huỷ')}}</td>
+                                <td style="width: 5%; display: flex; justify-content: center; border: none; width: 100%; align-items: center; gap: 20px;">
+                                    <app-order-detail [id]="item.ordersId"></app-order-detail>
+                                    <a [title]="item.status==0?'Huỷ đơn':'Không thể huỷ đơn này'"
+                                        (click)="cancel(item.status==0?item.ordersId:-1)"
+                                        [style]="item.status==0?'cursor: pointer':'cursor: not-allowed'"
+                                        onMouseOver="this.style.color='white', this.style.backgroundColor='red'"
+                                        onMouseOut="this.style.color='red', this.style.backgroundColor='white'">
+                                        <i class="icon-cross"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
